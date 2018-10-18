@@ -5,7 +5,7 @@ using namespace std;
 University::University() {
 	string uniName = "adelaideUni";
 	students = 10000;
-	moneyReserve = 1000000;
+	moneyReserve = 10000000;
 	hate = 100;
 	fees = 5;
 }
@@ -13,6 +13,9 @@ University::University() {
 //University cost 100000 to operate every year
 void University::yearlyMoneyDrain() {
 	moneyReserve = moneyReserve - 100000;
+	if (moneyReserve<=0){
+		moneyReserve=0;
+	}
 }
 
 int University::getStudents() {
@@ -48,5 +51,5 @@ void University::raiseFees() {
 //collection of total student fees every year
 void University::collectFees() {
 	int totalFee = fees*students;
-	moneyReserve += totalFee;
+	moneyReserve =moneyReserve + totalFee;
 }
