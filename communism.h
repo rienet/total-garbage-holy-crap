@@ -1,13 +1,14 @@
-#ifndef COMMUNISM_H
+ifndef COMMUNISM_H
 #define COMMUNISM_H
 
 #include "event.h"
+#include <string>
 
 class Communism: public Event {
 	int newStudents;
 	int newMoney;
 	int newHate;
-	const char textEvent;
+	const std::string textEvent;
 
 	public:
 		void action(University uniObject);
