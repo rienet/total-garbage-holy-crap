@@ -22,12 +22,3 @@ bool Simulation::ifMergeYear() {
 	}
 }
 
-//gameWin checks if all the criteria for winning the game are true
-void gameWin(Simulation sim, University uni) {
-	if (sim.ifMergeYear() == true && uni.getStudents() >= 0 && uni.getMoneyReserve() >= 0 && uni.getHate()) {
-		cout << "You successfully survived long enough to finally merge \
-		with super TAFE and win a fat check. Congratulations!" << endl;
-	} else {
-		cout << "Lol you lost" << endl;
-	}
-}
