@@ -1,13 +1,15 @@
 #ifndef MILITARY_H
 #define MILITARY_H
 
+#include <string>
 #include "event.h"
+using namespace std;
 
 class Military: public Event {
 	int newStudents;
 	int newMoney;
 	int newHate;
-	const char textEvent;
+	const std::string textEvent;
 
 	public:
 		void action(University uniObject);
