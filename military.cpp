@@ -1,11 +1,11 @@
 #include "military.h"
+#include <iostream>
+#include <string>
+using namespace std;
 
 void Military::action(University uniObject){
-	textFile = "The military approaches you to support your university with "
-	"more funding. You get guns that you sell for money, however the military " 
-	"wants some of your graduates and unfortunately your popularity decreases "
-	"a bit.";
-
+	string textEvent = "The military approaches you to support your university with more funding. You get guns that you sell for money, however the military wants some of your graduates and unfortunately your popularity decreases a bit.";
+	cout<<"The military approaches you to support your university with more funding. You get guns that you sell for money, however the military wants some of your graduates and unfortunately your popularity decreases a bit."<<endl;
 	int moreMoney = uniObject.getMoneyReserve();
 	moreMoney = moreMoney*1.8;
 	newMoney = moreMoney;
