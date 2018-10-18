@@ -1,4 +1,4 @@
-#include <limits>
+##include <limits>
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
@@ -14,7 +14,7 @@ void gameIntro();
 //gives a report on statistics for the current year
 void gameReport(Simulation sim, University uni, bool currencySwitch);
 //see event.cpp
-extern void gameWin(Simulation sim, University uni);
+void gameWin(int year, int money, int student, int hate);
 
 int main() {
 
@@ -29,12 +29,12 @@ int main() {
 
 	//declaring pointers to events
 	Event *events[4];
-	events[0] = new NuclearBomb;
+	events[0] = new NuclearBomb;;
 	events[1] = new NewClub;
 	events[2] = new Communism;
 	events[3] = new Military;
 
-	while(simLooper == true) {
+	while(simLooper==true) {
 
 		//when the game begins, gives intro and intial report
 		if (uniSim.getYear() == 0){
@@ -48,7 +48,6 @@ int main() {
 			/*calls event corresponding to random number, and the 
 			updates adelaideUni accordingly*/
 			events[randomNum]->action(adelaideUni);
-			events[randomNum]->
 			adelaideUni.setStudents(events[randomNum] -> getStudents());
 			adelaideUni.setMoney(events[randomNum] -> getMoney());
 			adelaideUni.setHate(events[randomNum] -> getHate());
@@ -76,7 +75,7 @@ int main() {
 						break;
 
 					} else if (yesOrNo == "n") {
-						cout << "Stuck with capitalism. The communist part is angry now" << endl;
+						cout << "Stuck with capitalism. The communist party is angry now" << endl;
 						adelaideUni.setHate(adelaideUni.getHate() + 50);
 						break;
 
@@ -126,7 +125,7 @@ int main() {
 
 			} else {
 				cout << "Please choose an option below that you haven't picked already, and try to spell it correctly too: " << endl << "nextYear" << endl;
-				cout << "raiseFees" << endl << "takeAWalk" << endl;
+				cout << "raiseFees" << endl;
 
 				if(clubMaster == true) {
 					cout << "scrapArts" << endl;
@@ -138,12 +137,11 @@ int main() {
 
 		cout << "______" << endl;
 		
-		if (uniSim.getYear() == 20) {
-			void gameWin(Simulation uniSim, University adelaideUni);
-
-			delete [] events;
-			break;
+		if ((uniSim.getYear()==20)){
+			gameWin((uniSim.getYear()), (adelaideUni.getMoneyReserve()),(adelaideUni.getStudents()),(adelaideUni.getHate()));
+			simLooper=false;
 		}
+		
 
 	}
 	if(clubMaster == true) {
@@ -166,6 +164,15 @@ void gameReport(Simulation sim, University uni, bool currencySwitch) {
 	cout << "Students: " << uni.getStudents() << endl;
 	cout << "Hate level: " << uni.getHate() << endl;
 	cout << "What would you like to do?" << endl;
+}
+
+void gameWin(int year, int money, int student, int hate) {
+	if((year==20) && (money>=1) && (hate>=0) && (student>0)){
+		cout<<"CONGRADULATIONS. YOU WIN.....:)"<<endl;
+	}
+	else{
+		cout<<"TOO BAD YOU LOOSE......:("<<endl;
+	}
 }
 
 
