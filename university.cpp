@@ -6,6 +6,7 @@ University::University() {
 	string uniName = "adelaideUni";
 	students = 10000;
 	moneyReserve = 1000000;
+	hate = 100;
 }
 
 void University::yearlyMoneyDrain() {
@@ -38,4 +39,9 @@ void University::setMoney(int newMoney){
 
 void University::setHate(int newHate){
 	hate = newHate;
+}
+
+void University::raiseFees() {
+	fees = fees*1.1;
+	hate = hate + 30;
 }

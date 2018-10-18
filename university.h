@@ -8,6 +8,7 @@ class University {
 	int students;
 	int moneyReserve;
 	int hate;
+	int fees;
 
 public:
 	University();
@@ -22,6 +23,8 @@ public:
 	void setStudents(int newStudents);
 	void setMoney(int newMoney);
 	void setHate(int newHate);
+
+	void raiseFees();
 
 };
 
