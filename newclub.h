@@ -1,16 +1,19 @@
-#ifndef NEWCLUB_H
 #define NEWCLUB_H
 
 #include "event.h"
 
 class NewClub: public Event {
 	int newStudents;
+	int newMoney;
+	int newHate;
 	std::string textEvent;
 
 	public:
 		void action(University uniObject);
 		int getStudents();
 		void displayEvent();
+		int getMoney();
+		int getHate();
 };
 
 #endif
