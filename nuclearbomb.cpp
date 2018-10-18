@@ -1,6 +1,9 @@
 #include "nuclearbomb.h"
 
 void NuclearBomb::action(University uniObject){
+	textEvent = "A nuclear bomb hits the university. Miraculously the "
+	"university still functions, but you're only left with 10% of your " 
+	"students your currency changes to bottle caps.";
 
 	int lessStudents = uniObject.getStudents();
 	lessStudents = lessStudents/10;
@@ -10,13 +13,7 @@ void NuclearBomb::action(University uniObject){
 int NuclearBomb::getStudents() {
 	return newStudents;
 }
-/*
-void nukeAction(University uniObject) {
-	uniObject.setStudents(NuclearBomb.);
 
-	currencySwitch = true;
+void NuclearBomb::displayEvent() {
+	cout << textEvent << endl;
 }
-*/
-//	Event *events[10] = {UniversityDestroyedEvent(), }
-
-//	events[rand() % 10].action(university);

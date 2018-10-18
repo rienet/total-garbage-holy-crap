@@ -2,6 +2,8 @@
 #define SIMULATION_H
 #include "university.h"
 
+/*Simulation class basically keeps 'track' of the simulation by 
+providing the year and 'ticks' that helps with loops and inputs*/
 class Simulation {
 	int year;
 	int yearWinCondition;
@@ -10,14 +12,9 @@ public:
 	Simulation();
 
 	int getYear();
-	//University getUniObject();
 	void yearlyTick(University uniObject);
-	void ifWin();
+	bool ifMergeYear();
 
-	//functions ripped from university class
-	std::string rippedUniName();
-	int rippedMoneyReserve();
-	int rippedHate();
 };
 
 #endif

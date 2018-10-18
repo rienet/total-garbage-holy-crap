@@ -1,6 +1,9 @@
 #include "communism.h"
 
 void Communism::action(University uniObject){
+	textEvent = "Australia becomes a communist country, and so obviously "
+	"your university is affected by this. You share half your money reserves "
+	"with the common folk, so you gain some more students and a bit of popularity.";
 
 	int lessMoney = uniObject.getMoneyReserve();
 	lessMoney = lessMoney/2;
@@ -25,4 +28,8 @@ int Communism::getMoney() {
 
 int Communism::getHate() {
 	return newHate;
+}
+
+void Communism::displayEvent() {
+	cout << textEvent << endl;
 }

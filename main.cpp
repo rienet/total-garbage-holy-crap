@@ -6,110 +6,154 @@
 #include "nuclearbomb.h"
 #include "newclub.h"
 #include "communism.h"
+#include "military.h"
 using namespace std;
 
+//introduces the game
 void gameIntro();
+//gives a report on statistics for the current year
 void gameReport(Simulation sim, University uni, bool currencySwitch);
-extern void nukeAction(University uniObject);
+//see event.cpp
+extern void gameWin(Simulation sim, University uni);
 
 int main() {
 
 	University adelaideUni;
 	Simulation uniSim;
-	bool clubMaster = true;
-	bool needToSwitch = false;
-
+	//status as clubmaster is set false until the club event is called
+	bool clubMaster = false;
+	//currency changes after the nuclear event
+	bool aftermathCurrency = false;
+	//simLooper keeps the simulation looping as long as its true 
 	bool simLooper = true;
 
-	Event *events[3];
+	//declaring pointers to events
+	Event *events[4];
 	events[0] = new NuclearBomb;
 	events[1] = new NewClub;
 	events[2] = new Communism;
+	events[3] = new Military;
 
 	while(simLooper == true) {
 
+		//when the game begins, gives intro and intial report
 		if (uniSim.getYear() == 0){
 			gameIntro();
-			gameReport(uniSim, adelaideUni, needToSwitch);
+			gameReport(uniSim, adelaideUni, aftermathCurrency);
+		//game continues normally
 		} else {
+			//used to generate a seed for truly random numbers between 0-3
 			srand (time(NULL));
-			int randomNum = rand() % 3;
+			int randomNum = rand() % 4;
+			/*calls event corresponding to random number, and the 
+			updates adelaideUni accordingly*/
 			events[randomNum]->action(adelaideUni);
+			events[randomNum]->
 			adelaideUni.setStudents(events[randomNum] -> getStudents());
 			adelaideUni.setMoney(events[randomNum] -> getMoney());
 			adelaideUni.setHate(events[randomNum] -> getHate());
 
+			//sets appropriate values for the events called
 			if (randomNum == 0) {
-				needToSwitch = true;
+				aftermathCurrency = true;
 			}
 
 			if (randomNum == 1) {
 				clubMaster = true;
 			}
 
+			//event asks for a yes or no prompt 
 			if (randomNum == 2) {
+				string yesOrNo;
+				cout << "You wanna stick with communism or nah back to capitalism? Answer with [y/n]." << endl;
+				//bool variable loops the input until an appropriate answer is given
+				bool InputLoopermk2 = true;
+				while(InputLoopermk2){
+					cin >> yesOrNo;
 
+					if (yesOrNo == "y") {
+						cout << "Stuck with communism" << endl;
+						break;
+
+					} else if (yesOrNo == "n") {
+						cout << "Stuck with capitalism. The communist part is angry now" << endl;
+						adelaideUni.setHate(adelaideUni.getHate() + 50);
+						break;
+
+					} else {
+						cout << "How hard is it to answer with [y/n]?" << endl;
+					}
+				}
 			}
-
-			gameReport(uniSim, adelaideUni, needToSwitch);
+			//reports back current year statistics
+			gameReport(uniSim, adelaideUni, aftermathCurrency);
 		}
 
-		string userInput = "0";
+		//bool variable acts the same as the yes/no prompt
 		bool inputLooper = true;
-		
-		bool inputBoolean[4] = {true, true, true, false};
-		if (clubMaster == true) {
-			inputBoolean[3] = true; 
-		}
-
-
-		while(inputLooper = true) {
+		string userInput;
+		//once a valid option is chosen, the next year rolls over
+		while(inputLooper) {
 			cin >> userInput;
-			if (userInput == "nextYear" && inputBoolean[0] == true){
-				inputBoolean[0] == false;
+
+			//rolls to next year without doing anything
+			if (userInput == "nextYear"){
 				uniSim.yearlyTick(adelaideUni);
 				adelaideUni.yearlyMoneyDrain();
-
-				userInput = "0";
+				adelaideUni.collectFees();
 				break;
 
-			} else if(userInput == "raiseFees" && inputBoolean[1] == true){
-				inputBoolean[1] == false;
-				cin.clear();
+			//raises student fees
+			} else if(userInput == "raiseFees" ){
 				cout << "raised fees" << endl;
 				adelaideUni.raiseFees();
 
-			} else if(userInput == "takeAWalk" && inputBoolean[2] == true){
-				inputBoolean[2] == false;
+				uniSim.yearlyTick(adelaideUni);
+				adelaideUni.yearlyMoneyDrain();
+				adelaideUni.collectFees();
+				break;
 
-			} else if(userInput == "scrapArts" && inputBoolean[3] == true){
-				inputBoolean[3] == false;
+			//special case for club event
+			} else if(userInput == "scrapArts" && clubMaster == true){
+				clubMaster = false;
+				adelaideUni.setHate(adelaideUni.getHate() - 50);
+				adelaideUni.setMoney(adelaideUni.getMoneyReserve() + 10000);
+
+				uniSim.yearlyTick(adelaideUni);
+				adelaideUni.yearlyMoneyDrain();
+				adelaideUni.collectFees();
+				break;
 
 			} else {
 				cout << "Please choose an option below that you haven't picked already, and try to spell it correctly too: " << endl << "nextYear" << endl;
 				cout << "raiseFees" << endl << "takeAWalk" << endl;
 
 				if(clubMaster == true) {
-					"scrapArts";
+					cout << "scrapArts" << endl;
+
 				}
 
 			}
 		}
 
 		cout << "______" << endl;
-
-		uniSim.ifWin();
+		
 		if (uniSim.getYear() == 20) {
+			void gameWin(Simulation uniSim, University adelaideUni);
+
 			delete [] events;
 			break;
 		}
 
 	}
+	if(clubMaster == true) {
+		cout << "You were a clubmaster in this sim!" << endl;
+	}
 
 }
 
 void gameIntro() {
-	cout << "Hi welcome to game lol" << endl << endl;
+	cout << "Hi welcome to the university stimulator. This is pretty much a text-based management sim." << endl << endl;
 }
 
 void gameReport(Simulation sim, University uni, bool currencySwitch) {
@@ -123,3 +167,5 @@ void gameReport(Simulation sim, University uni, bool currencySwitch) {
 	cout << "Hate level: " << uni.getHate() << endl;
 	cout << "What would you like to do?" << endl;
 }
+
+

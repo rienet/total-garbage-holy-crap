@@ -12,51 +12,22 @@ int Simulation::getYear() {
 	return year;
 }
 
-/*
-void Simulation::setUni(University blankUni) {
-	uniPointer = &blankUni;
-}
-
-
-void Simulation::getUniObject() {
-	return uniObject;
-}
-*/
 void Simulation::yearlyTick(University uniObject) {
 	year++;
-	uniObject.yearlyMoneyDrain();
 }
 
-void Simulation::ifWin() {
+bool Simulation::ifMergeYear() {
 	if (year == yearWinCondition){
-		cout << "You successfully survived long enough to finally merge \
-		with super TAFE and win a fat check. Congratulations!" << endl;
+		return	true;
 	}
 }
 
-//functions ripped from university class
-/*
-string Simulation::rippedUniName() {
-	return uniObject.getUniName();
+//gameWin checks if all the criteria for winning the game are true
+void gameWin(Simulation sim, University uni) {
+	if (sim.ifMergeYear() == true && uni.getStudents() >= 0 && uni.getMoneyReserve() >= 0 && uni.getHate()) {
+		cout << "You successfully survived long enough to finally merge \
+		with super TAFE and win a fat check. Congratulations!" << endl;
+	} else {
+		cout << "Lol you lost" << endl;
+	}
 }
-
-int Simulation::rippedMoneyReserve() {
-	return uniObject.getMoneyReserve();
-}
-
-int Simulation::rippedHate() {
-	return uniObject.getHate();
-}
-
-void Simulation::rippedSetStudents(int newStudents){
-	students = newStudents;
-}
-
-void University::setMoney(int newMoney){
-	moneyReserve = newMoney;
-}
-
-void University::setHate(int newHate){
-	hate = newHate;
-}
-*/

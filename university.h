@@ -3,8 +3,8 @@
 
 #include <string>
 
+//university simulation
 class University {
-	std::string uniName;
 	int students;
 	int moneyReserve;
 	int hate;
@@ -15,7 +15,6 @@ public:
 
 	void yearlyMoneyDrain();
 
-	std::string getUniName();
 	int getStudents();
 	int getMoneyReserve();
 	int getHate();
@@ -24,7 +23,9 @@ public:
 	void setMoney(int newMoney);
 	void setHate(int newHate);
 
+	//raises student fees and so on
 	void raiseFees();
+	void collectFees();
 
 };
 

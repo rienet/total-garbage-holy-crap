@@ -1,7 +1,10 @@
 #include "event.h"
 
-
 void Event::action(University uniObject) {
+
+}
+
+void Event::displayEvent() {
 
 }
 
@@ -16,6 +19,3 @@ int Event::getMoney() {
 int Event::getHate() {
 	return newHate;
 }
-//	Event *events[10] = {UniversityDestroyedEvent(), }
-
-//	events[rand() % 10].action(university);
