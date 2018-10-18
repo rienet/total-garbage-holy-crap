@@ -5,11 +5,15 @@
 
 class NuclearBomb: public Event {
 	int newStudents;
+	int newMoney;
+	int newHate;
 	const char * textEvent;
 
 	public:
 		void action(University uniObject);
 		int getStudents();
+		int getMoney();
+		int getHate();
 		void displayEvent();
 };
 
